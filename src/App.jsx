@@ -25,16 +25,18 @@ function App() {
   return (
     <Router>
       <Navbar />
-      <Routes>
-        <Route path="/" element={<PublicRoute><Home /></PublicRoute>} />
-        <Route path="/login" element={<PublicRoute><Login /></PublicRoute>} />
-        <Route path="/register" element={<PublicRoute><Register /></PublicRoute>} />
-        <Route path="/dashboard" element={<PrivateRoute><Dashboard /></PrivateRoute>} />
-        <Route path="/post-job" element={<PrivateRoute><PostJob /></PrivateRoute>} />
-        <Route path="/jobs" element={<PrivateRoute><Jobs /></PrivateRoute>} />
-        <Route path="/jobs/:id" element={<PrivateRoute><JobDetails /></PrivateRoute>} />
-        <Route path="/messages" element={<PrivateRoute><Messages /></PrivateRoute>} />
-      </Routes>
+      <div className="pb-20 md:pb-0 min-h-screen flex flex-col">
+        <Routes>
+          <Route path="/" element={<PublicRoute><Home /></PublicRoute>} />
+          <Route path="/login" element={<PublicRoute><Login /></PublicRoute>} />
+          <Route path="/register" element={<PublicRoute><Register /></PublicRoute>} />
+          <Route path="/dashboard" element={<PrivateRoute><Dashboard /></PrivateRoute>} />
+          <Route path="/post-job" element={<PrivateRoute><PostJob /></PrivateRoute>} />
+          <Route path="/jobs" element={<PrivateRoute><Jobs /></PrivateRoute>} />
+          <Route path="/jobs/:id" element={<PrivateRoute><JobDetails /></PrivateRoute>} />
+          <Route path="/messages" element={<PrivateRoute><Messages /></PrivateRoute>} />
+        </Routes>
+      </div>
     </Router>
   );
 }
