@@ -85,8 +85,8 @@ export default function PostJob() {
             ></textarea>
           </div>
           
-          <div className="flex gap-md">
-            <div className="form-group" style={{ flex: 1 }}>
+          <div className="flex flex-col md:flex-row gap-4 md:gap-6">
+            <div className="form-group flex-1">
               <label className="form-label">Budget</label>
               <input 
                 type="text" 
@@ -98,7 +98,7 @@ export default function PostJob() {
               />
             </div>
             
-            <div className="form-group" style={{ flex: 1 }}>
+            <div className="form-group flex-1">
               <label className="form-label">Deadline</label>
               <input 
                 type="date" 
@@ -110,11 +110,11 @@ export default function PostJob() {
             </div>
           </div>
           
-          <div className="flex justify-between items-center" style={{ marginTop: '1.5rem' }}>
-            <button type="button" className="btn btn-secondary" onClick={() => navigate('/dashboard')}>
+          <div className="flex flex-col-reverse sm:flex-row justify-between items-center gap-4 mt-6">
+            <button type="button" className="btn btn-secondary w-full sm:w-auto" onClick={() => navigate('/dashboard')}>
               Cancel
             </button>
-            <button disabled={loading} type="submit" className="btn btn-primary">
+            <button disabled={loading} type="submit" className="btn btn-primary w-full sm:w-auto shadow-md">
               {loading ? 'Posting...' : 'Post Job'}
             </button>
           </div>

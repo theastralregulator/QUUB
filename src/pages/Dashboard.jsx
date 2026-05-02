@@ -21,40 +21,37 @@ export default function Dashboard() {
   }
 
   return (
-    <div className="container animate-fade-in" style={{ paddingTop: '2rem' }}>
-      <div className="flex justify-between items-center" style={{ marginBottom: '2rem' }}>
-        <h2>Dashboard</h2>
-        <div className="flex gap-sm">
+    <div className="container mx-auto px-4 animate-fade-in py-8">
+      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-8">
+        <h2 className="text-2xl font-bold text-gray-800">Dashboard</h2>
+        <div className="flex gap-3 w-full sm:w-auto">
           {userData.role === 'customer' && (
-            <Link to="/post-job" className="btn btn-primary">Post a New Job</Link>
+            <Link to="/post-job" className="btn btn-primary flex-1 sm:flex-none text-center shadow-sm">Post a New Job</Link>
           )}
-          <button onClick={handleLogout} className="btn btn-secondary flex items-center gap-sm">
-            <LogOut size={18} /> Logout
-          </button>
         </div>
       </div>
 
-      <div className="card">
-        <div className="flex items-center gap-md" style={{ marginBottom: '1.5rem' }}>
+      <div className="card shadow-sm border border-gray-200">
+        <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 mb-6">
           <img 
             src={userData.avatarUrl} 
             alt="Profile Avatar" 
-            style={{ width: '64px', height: '64px', borderRadius: '50%', objectFit: 'cover', border: '2px solid var(--border-color)' }} 
+            className="w-16 h-16 rounded-full object-cover border-2 border-gray-100 shadow-sm"
           />
           <div>
-            <h3 style={{ marginBottom: '0.25rem' }}>{userData.name}</h3>
-            <div className="flex items-center gap-sm">
-              <span style={{ color: 'var(--text-secondary)', fontSize: '0.9rem' }}>{userData.email}</span>
-              <span style={{ display: 'inline-block', padding: '0.15rem 0.5rem', borderRadius: '1rem', backgroundColor: 'rgba(59, 130, 246, 0.1)', color: 'var(--accent-color)', fontSize: '0.75rem', fontWeight: '600', textTransform: 'uppercase' }}>
+            <h3 className="text-xl font-bold text-gray-900 mb-1">{userData.name}</h3>
+            <div className="flex items-center gap-2 flex-wrap">
+              <span className="text-sm text-gray-500">{userData.email}</span>
+              <span className="px-3 py-1 rounded-full bg-green-50 text-[#1dbf73] text-xs font-bold uppercase tracking-wider">
                 {userData.role}
               </span>
             </div>
           </div>
         </div>
         
-        <div style={{ height: '1px', backgroundColor: 'var(--border-color)', margin: '1.5rem 0' }}></div>
+        <div className="h-px bg-gray-100 my-6"></div>
 
-        <p style={{ color: 'var(--text-secondary)' }}>
+        <p className="text-gray-600">
           {userData.role === 'worker' 
             ? "Welcome to your worker dashboard! Soon you'll be able to manage your portfolio and apply for jobs." 
             : "Welcome to your customer dashboard! Soon you'll be able to post new projects and hire talented workers."}

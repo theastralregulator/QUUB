@@ -71,48 +71,52 @@ export default function JobDetails() {
   if (!job) return <div className="container" style={{ paddingTop: '3rem', textAlign: 'center' }}>{message}</div>;
 
   return (
-    <div className="container animate-fade-in" style={{ paddingTop: '2rem', paddingBottom: '3rem', maxWidth: '800px' }}>
-      <Link to="/jobs" className="flex items-center gap-sm" style={{ marginBottom: '1.5rem', color: 'var(--text-secondary)' }}>
+    <div className="container mx-auto px-4 py-8 max-w-4xl animate-fade-in">
+      <Link to="/jobs" className="inline-flex items-center gap-2 mb-6 text-gray-500 hover:text-[#1dbf73] font-medium transition-colors">
         <ArrowLeft size={16} /> Back to Jobs
       </Link>
       
-      <div className="card" style={{ padding: '2.5rem' }}>
-        <div className="flex justify-between items-start" style={{ marginBottom: '2rem', flexWrap: 'wrap', gap: '1rem' }}>
+      <div className="bg-white rounded-2xl border border-gray-200 shadow-sm p-6 md:p-10">
+        <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-8">
           <div>
-            <h1 style={{ fontSize: '2rem', marginBottom: '0.5rem' }}>{job.title}</h1>
-            <div className="flex items-center gap-sm" style={{ color: 'var(--text-secondary)' }}>
-              <img src={job.customerAvatar} alt={job.customerName} style={{ width: '24px', height: '24px', borderRadius: '50%' }} />
-              <span>Posted by {job.customerName}</span>
-              <span>•</span>
+            <h1 className="text-2xl md:text-3xl font-extrabold text-gray-900 mb-3">{job.title}</h1>
+            <div className="flex flex-wrap items-center gap-2 text-gray-500 text-sm font-medium">
+              <img src={job.customerAvatar} alt={job.customerName} className="w-6 h-6 rounded-full shadow-sm" />
+              <span>Posted by <span className="text-gray-800">{job.customerName}</span></span>
+              <span className="hidden sm:inline">•</span>
               <span>{new Date(job.createdAt).toLocaleDateString()}</span>
             </div>
           </div>
           
-          <div style={{ display: 'inline-block', padding: '0.5rem 1rem', borderRadius: '2rem', backgroundColor: job.status === 'open' ? 'rgba(16, 185, 129, 0.1)' : 'rgba(148, 163, 184, 0.1)', color: job.status === 'open' ? 'var(--success-color)' : 'var(--text-secondary)', fontWeight: '600', textTransform: 'uppercase', fontSize: '0.875rem' }}>
+          <div className={`px-4 py-1.5 rounded-full text-sm font-bold uppercase tracking-wider ${job.status === 'open' ? 'bg-green-50 text-[#1dbf73]' : 'bg-gray-100 text-gray-500'}`}>
             {job.status}
           </div>
         </div>
 
-        <div className="flex gap-lg" style={{ marginBottom: '2.5rem', padding: '1.5rem', backgroundColor: 'var(--bg-primary)', borderRadius: 'var(--border-radius-sm)' }}>
-          <div className="flex items-center gap-sm">
-            <DollarSign color="var(--success-color)" />
+        <div className="flex flex-col sm:flex-row gap-4 sm:gap-8 mb-10 p-6 bg-gray-50 rounded-xl border border-gray-100">
+          <div className="flex items-center gap-3">
+            <div className="p-2 bg-green-100 rounded-lg text-[#1dbf73]">
+              <DollarSign size={20} />
+            </div>
             <div>
-              <span style={{ display: 'block', fontSize: '0.75rem', color: 'var(--text-secondary)' }}>Budget</span>
-              <span style={{ fontWeight: '600' }}>{job.budget}</span>
+              <span className="block text-xs text-gray-500 font-semibold uppercase tracking-wider mb-0.5">Budget</span>
+              <span className="font-extrabold text-gray-900 text-lg">{job.budget}</span>
             </div>
           </div>
-          <div className="flex items-center gap-sm">
-            <Calendar color="var(--accent-color)" />
+          <div className="flex items-center gap-3">
+            <div className="p-2 bg-blue-100 rounded-lg text-blue-500">
+              <Calendar size={20} />
+            </div>
             <div>
-              <span style={{ display: 'block', fontSize: '0.75rem', color: 'var(--text-secondary)' }}>Deadline</span>
-              <span style={{ fontWeight: '600' }}>{job.deadline}</span>
+              <span className="block text-xs text-gray-500 font-semibold uppercase tracking-wider mb-0.5">Deadline</span>
+              <span className="font-extrabold text-gray-900 text-lg">{job.deadline}</span>
             </div>
           </div>
         </div>
 
-        <div style={{ marginBottom: '3rem' }}>
-          <h3 style={{ marginBottom: '1rem' }}>Job Description</h3>
-          <p style={{ color: 'var(--text-primary)', whiteSpace: 'pre-wrap', lineHeight: '1.8' }}>
+        <div className="mb-10">
+          <h3 className="text-xl font-bold text-gray-900 mb-4">Job Description</h3>
+          <p className="text-gray-600 whitespace-pre-wrap leading-relaxed">
             {job.description}
           </p>
         </div>
