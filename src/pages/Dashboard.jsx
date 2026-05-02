@@ -38,7 +38,7 @@ export default function Dashboard() {
   const pct = Math.round((filledFields / fields.length) * 100);
 
   return (
-    <div className="min-h-screen bg-[#F8FAFF] pb-32 md:pb-10 font-sans relative overflow-hidden">
+    <div className="min-h-screen pb-32 md:pb-10 font-sans relative">
       
       {/* Background Blobs for Premium Feel (From Image) */}
       <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-indigo-50/50 rounded-full blur-[100px] -z-10"></div>

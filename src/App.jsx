@@ -1,6 +1,7 @@
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { useAuth } from './context/AuthContext';
 import Navbar from './components/Navbar';
+import AnimatedBG from './components/AnimatedBG';
 
 import Home from './pages/Home';
 import Login from './pages/Login';
@@ -25,8 +26,9 @@ function PublicRoute({ children }) {
 function App() {
   return (
     <Router>
+      <AnimatedBG />
       <Navbar />
-      <div className="pb-20 md:pb-0 min-h-screen flex flex-col">
+      <div className="pb-20 md:pb-0 min-h-screen flex flex-col relative z-10">
         <Routes>
           <Route path="/" element={<PublicRoute><Home /></PublicRoute>} />
           <Route path="/login" element={<PublicRoute><Login /></PublicRoute>} />

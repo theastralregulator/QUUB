@@ -2,37 +2,9 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { Sparkles, Briefcase, Zap, ShieldCheck, ArrowRight, Star } from 'lucide-react';
 
-function AnimatedBackground() {
-  return (
-    <div className="animated-bg">
-      <div className="grid-overlay" />
-      <div className="orb3" />
-      {/* Floating particles */}
-      {[...Array(12)].map((_, i) => (
-        <div
-          key={i}
-          className="particle"
-          style={{
-            left: `${Math.random() * 100}%`,
-            width: `${4 + Math.random() * 8}px`,
-            height: `${4 + Math.random() * 8}px`,
-            background: i % 2 === 0
-              ? `rgba(124, 58, 237, ${0.3 + Math.random() * 0.4})`
-              : `rgba(6, 182, 212, ${0.3 + Math.random() * 0.4})`,
-            animationDuration: `${8 + Math.random() * 12}s`,
-            animationDelay: `${Math.random() * 10}s`,
-          }}
-        />
-      ))}
-    </div>
-  );
-}
-
 export default function Home() {
   return (
-    <div className="min-h-screen relative overflow-hidden">
-      <AnimatedBackground />
-
+    <div className="min-h-screen relative flex flex-col items-center">
       {/* Hero Section */}
       <div className="relative z-10 container mx-auto px-5 pt-12 pb-16 md:pt-24 md:pb-32 text-center flex flex-col items-center">
 
