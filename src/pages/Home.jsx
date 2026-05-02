@@ -12,12 +12,16 @@ export default function Home() {
           <span>The Future of Freelancing is Here</span>
         </div>
         
+        <div className="flex justify-center mb-10">
+          <img src="/logo.png" alt="Logo" className="h-24 md:h-32 w-auto animate-fade-in" />
+        </div>
+        
         <h1 className="text-5xl md:text-8xl font-black text-slate-900 mb-8 tracking-tight leading-[1.1]">
           Find the best <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-cyan-500">talents</span> for your vision.
         </h1>
         
         <p className="text-xl md:text-2xl text-slate-500 max-w-3xl mx-auto mb-12 leading-relaxed">
-          QUUB connects elite creators with visionary clients. A premium marketplace designed for speed, security, and world-class quality.
+          We connect elite creators with visionary clients. A premium marketplace designed for speed, security, and world-class quality.
         </p>
         
         <div className="flex flex-col sm:flex-row gap-5 justify-center items-center w-full sm:w-auto">

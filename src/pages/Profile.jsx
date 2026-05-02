@@ -125,7 +125,7 @@ export default function Profile() {
                       {isEditing ? (
                         <input className="form-input" value={formData.website} onChange={e => setFormData({...formData, website: e.target.value})} placeholder="Website" />
                       ) : (
-                        <span>{userData.website || 'quub.io/profile'}</span>
+                        <span>{userData.website || 'website.com/profile'}</span>
                       )}
                     </div>
                   </div>
@@ -135,7 +135,7 @@ export default function Profile() {
                   <div className="absolute top-0 right-0 p-4 opacity-20 group-hover:scale-110 transition-transform">
                     <Award size={64} />
                   </div>
-                  <h5 className="font-black text-xl mb-2">QUUB Verified</h5>
+                  <h5 className="font-black text-xl mb-2">Verified Member</h5>
                   <p className="text-indigo-100 text-sm leading-relaxed">This member has passed our elite identity and quality verification process.</p>
                 </div>
               </div>

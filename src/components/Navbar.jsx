@@ -30,8 +30,8 @@ export default function Navbar() {
       {/* Top Navbar - Desktop Only */}
       <nav className="hidden md:block bg-white border-b border-gray-200 sticky top-0 z-50 shadow-sm">
         <div className="container mx-auto px-4 h-16 flex justify-between items-center">
-          <Link to="/dashboard" className="text-2xl font-bold text-[#1dbf73] tracking-tight">
-            QUUB
+          <Link to="/dashboard" className="flex items-center">
+            <img src="/logo.png" alt="QUUB Logo" className="h-10 w-auto" />
           </Link>
 
           <div className="flex items-center gap-6">
@@ -82,8 +82,8 @@ export default function Navbar() {
 
       {/* Top Navbar - Mobile Logo Only */}
       <nav className="md:hidden bg-white border-b border-gray-200 sticky top-0 z-50 h-14 flex items-center px-4 shadow-sm">
-        <Link to="/dashboard" className="text-xl font-bold text-[#1dbf73] tracking-tight">
-          QUUB
+        <Link to="/dashboard" className="flex items-center">
+          <img src="/logo.png" alt="QUUB Logo" className="h-8 w-auto" />
         </Link>
         <button onClick={handleLogout} className="ml-auto text-gray-400 p-2">
           <LogOut size={20} />
