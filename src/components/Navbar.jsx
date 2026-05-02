@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
-import { MessageSquare, Briefcase, LayoutDashboard, PlusCircle, LogOut, User, Home } from 'lucide-react';
+import { 
+  MessageSquare, Briefcase, LayoutDashboard, PlusCircle, 
+  LogOut, User, Bell, ChevronDown 
+} from 'lucide-react';
 
 export default function Navbar() {
   const { currentUser, userData, unreadCount, logout } = useAuth();
@@ -26,13 +29,6 @@ export default function Navbar() {
 
   const isActive = (path) => location.pathname.startsWith(path);
 
-  const navItemClass = (path) =>
-    `flex flex-col md:flex-row items-center gap-1 md:gap-2 px-3 py-2 rounded-xl transition-all duration-200 font-bold text-sm ${
-      isActive(path)
-        ? 'text-white bg-gradient-to-r from-violet-600 to-cyan-500 shadow-lg shadow-violet-500/30'
-        : 'text-slate-500 hover:text-violet-600 hover:bg-violet-50'
-    }`;
-
   const mobileNavItem = (path) =>
     `flex flex-col items-center gap-1 p-2 rounded-2xl transition-all duration-300 ${
       isActive(path)
@@ -42,69 +38,53 @@ export default function Navbar() {
 
   return (
     <>
-      {/* ---- Top Navbar - Desktop ---- */}
-      <nav className={`hidden md:block sticky top-0 z-50 transition-all duration-300 ${scrolled ? 'shadow-lg shadow-violet-100/50' : ''}`}
-        style={{ background: 'rgba(255,255,255,0.92)', backdropFilter: 'blur(20px)', borderBottom: '1px solid rgba(91,33,182,0.08)' }}>
+      {/* ---- Premium Header (Desktop & Mobile Top) ---- */}
+      <header className={`sticky top-0 z-50 transition-all duration-300 bg-white border-b border-slate-50 ${scrolled ? 'shadow-md shadow-slate-100/50' : ''}`}>
         <div className="container mx-auto px-6 h-16 flex justify-between items-center">
-          <Link to="/dashboard">
-            <img src="/logo.png" alt="Logo" className="h-9 w-auto transition-transform hover:scale-105" />
+          {/* Logo Section */}
+          <Link to="/dashboard" className="flex items-center gap-2 group">
+            <img src="/logo.png" alt="Logo" className="h-8 w-auto transition-transform group-hover:scale-110" />
+            <span className="text-xl font-bold text-[#1e1b4b]">Quub.</span>
           </Link>
 
-          <div className="flex items-center gap-1">
-            <Link to="/dashboard" className={navItemClass('/dashboard')}>
-              <LayoutDashboard size={17} /><span>Home</span>
-            </Link>
-            <Link to="/jobs" className={navItemClass('/jobs')}>
-              <Briefcase size={17} /><span>Jobs</span>
-            </Link>
-            {userData?.role === 'customer' && (
-              <Link to="/post-job" className={navItemClass('/post-job')}>
-                <PlusCircle size={17} /><span>Post Job</span>
-              </Link>
-            )}
-            <Link to="/messages" className={`${navItemClass('/messages')} relative`}>
-              <MessageSquare size={17} /><span>Messages</span>
+          {/* Desktop Navigation Links */}
+          <div className="hidden md:flex items-center gap-6">
+            <Link to="/dashboard" className={`text-sm font-bold transition-colors ${isActive('/dashboard') ? 'text-violet-600' : 'text-slate-400 hover:text-violet-600'}`}>Home</Link>
+            <Link to="/jobs" className={`text-sm font-bold transition-colors ${isActive('/jobs') ? 'text-violet-600' : 'text-slate-400 hover:text-violet-600'}`}>Jobs</Link>
+            <Link to="/messages" className={`text-sm font-bold transition-colors ${isActive('/messages') ? 'text-violet-600' : 'text-slate-400 hover:text-violet-600'}`}>Messages</Link>
+          </div>
+
+          {/* Icons & Profile Section */}
+          <div className="flex items-center gap-4 md:gap-6">
+            <div className="relative cursor-pointer hover:scale-110 transition-transform">
+              <Bell size={22} className="text-slate-400" />
               {unreadCount > 0 && (
-                <span className="absolute -top-1 -right-1 bg-red-500 text-white rounded-full w-5 h-5 text-[10px] flex items-center justify-center font-black border-2 border-white animate-pulse">
-                  {unreadCount > 9 ? '9+' : unreadCount}
-                </span>
+                <div className="absolute -top-0.5 -right-0.5 w-2.5 h-2.5 bg-indigo-500 rounded-full border-2 border-white animate-pulse"></div>
               )}
-            </Link>
-            <div className="w-px h-6 bg-slate-200 mx-2" />
-            <Link to="/profile" className="ml-1 flex items-center gap-2 hover:bg-violet-50 px-3 py-2 rounded-xl transition-all group border border-transparent hover:border-violet-100">
-              <img
-                src={userData?.avatarUrl || `https://api.dicebear.com/7.x/avataaars/svg?seed=${currentUser.uid}`}
-                alt="" className="w-8 h-8 rounded-full border-2 border-violet-200 object-cover group-hover:scale-105 transition-transform"
+            </div>
+            
+            <div className="group relative flex items-center gap-2 bg-slate-50 p-1 pr-3 rounded-full border border-slate-100 cursor-pointer hover:bg-slate-100 transition-all">
+              <img 
+                src={userData?.avatarUrl || `https://api.dicebear.com/7.x/avataaars/svg?seed=${currentUser.uid}`} 
+                alt="" 
+                className="w-8 h-8 rounded-full border-2 border-white shadow-sm" 
               />
-              <span className="text-sm font-bold text-slate-600 hidden lg:block">Profile</span>
-            </Link>
-            <button onClick={handleLogout} className="p-2 ml-1 text-slate-400 hover:text-red-500 transition-colors rounded-xl hover:bg-red-50">
-              <LogOut size={20} />
-            </button>
+              <span className="text-sm font-bold text-slate-700 hidden sm:inline">{userData?.name?.split(' ')[0]}</span>
+              <ChevronDown size={14} className="text-slate-400 group-hover:rotate-180 transition-transform" />
+              
+              {/* Dropdown Menu */}
+              <div className="absolute top-full right-0 mt-2 w-48 bg-white rounded-2xl shadow-2xl border border-slate-100 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all py-2 z-50">
+                <Link to="/profile" className="flex items-center gap-3 px-4 py-2 text-sm font-bold text-slate-600 hover:bg-violet-50 hover:text-violet-600 transition-colors">
+                  <User size={18} /> Profile
+                </Link>
+                <button onClick={handleLogout} className="w-full flex items-center gap-3 px-4 py-2 text-sm font-bold text-red-500 hover:bg-red-50 transition-colors">
+                  <LogOut size={18} /> Logout
+                </button>
+              </div>
+            </div>
           </div>
         </div>
-      </nav>
-
-      {/* ---- Mobile Top Bar ---- */}
-      <nav className="md:hidden sticky top-0 z-50"
-        style={{ background: 'rgba(255,255,255,0.92)', backdropFilter: 'blur(20px)', borderBottom: '1px solid rgba(91,33,182,0.08)' }}>
-        <div className="h-14 flex items-center justify-between px-5">
-          <Link to="/dashboard">
-            <img src="/logo.png" alt="Logo" className="h-8 w-auto" />
-          </Link>
-          <div className="flex items-center gap-2">
-            <Link to="/profile">
-              <img
-                src={userData?.avatarUrl || `https://api.dicebear.com/7.x/avataaars/svg?seed=${currentUser.uid}`}
-                alt="" className="w-8 h-8 rounded-full border-2 border-violet-200 object-cover"
-              />
-            </Link>
-            <button onClick={handleLogout} className="p-2 text-slate-400 hover:text-red-500 transition-colors">
-              <LogOut size={20} />
-            </button>
-          </div>
-        </div>
-      </nav>
+      </header>
 
       {/* ---- Mobile Bottom Nav Bar ---- */}
       <nav className="md:hidden fixed bottom-0 left-0 right-0 z-50"
@@ -139,20 +119,6 @@ export default function Navbar() {
               <span className="text-[10px] font-black text-violet-600 tracking-tight">Post</span>
             </Link>
           ) : (
-            <Link to="/messages" className={`${mobileNavItem('/messages')} relative`}>
-              <div className={`p-2 rounded-2xl relative transition-all ${isActive('/messages') ? 'bg-violet-100' : ''}`}>
-                <MessageSquare size={24} />
-                {unreadCount > 0 && (
-                  <span className="absolute top-1 right-1 bg-red-500 text-white rounded-full w-4 h-4 text-[9px] flex items-center justify-center font-black">
-                    {unreadCount}
-                  </span>
-                )}
-              </div>
-              <span className="text-[10px] font-black tracking-tight">Messages</span>
-            </Link>
-          )}
-
-          {userData?.role === 'customer' && (
             <Link to="/messages" className={`${mobileNavItem('/messages')} relative`}>
               <div className={`p-2 rounded-2xl relative transition-all ${isActive('/messages') ? 'bg-violet-100' : ''}`}>
                 <MessageSquare size={24} />
