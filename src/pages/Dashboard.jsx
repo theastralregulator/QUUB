@@ -3,219 +3,249 @@ import { useAuth } from '../context/AuthContext';
 import { useNavigate, Link } from 'react-router-dom';
 import { db } from '../firebase';
 import { collection, query, where, getDocs } from 'firebase/firestore';
-import {
-  Briefcase, MessageSquare, ArrowRight, Crown,
-  CheckCircle2, Circle, HeadphonesIcon, TrendingUp
+import { 
+  Briefcase, MessageSquare, ArrowRight, Bell, ChevronDown, 
+  Search, Headphones, CheckCircle2, Circle, LayoutDashboard, User, TrendingUp
 } from 'lucide-react';
 
 export default function Dashboard() {
-  const { userData, unreadCount, logout } = useAuth();
+  const { userData, unreadCount } = useAuth();
   const navigate = useNavigate();
   const [stats, setStats] = useState({ jobs: 0 });
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    if (!userData) return;
     async function fetchStats() {
+      if (!userData) return;
       try {
-        const col = userData.role === 'customer' ? 'Jobs' : 'Applications';
-        const field = userData.role === 'customer' ? 'customerId' : 'workerId';
-        const snap = await getDocs(query(collection(db, col), where(field, '==', userData.uid)));
+        const collectionName = userData.role === 'customer' ? "Jobs" : "Applications";
+        const filterField = userData.role === 'customer' ? "customerId" : "workerId";
+        
+        const q = query(collection(db, collectionName), where(filterField, "==", userData.uid));
+        const snap = await getDocs(q);
         setStats({ jobs: snap.size });
-      } catch (e) { console.error(e); }
+      } catch (e) {
+        console.error(e);
+      }
+      setLoading(false);
     }
     fetchStats();
   }, [userData]);
 
   if (!userData) {
-    return (
-      <div className="min-h-screen flex items-center justify-center bg-[#F5F5FF]">
-        <div className="w-10 h-10 rounded-full border-4 border-violet-600 border-t-transparent animate-spin" />
-      </div>
-    );
+    return <div className="min-h-screen bg-[#F8FAFF] flex items-center justify-center font-bold text-slate-400">Loading your space...</div>;
   }
 
+  // Calculate profile completion %
   const fields = ['bio', 'location', 'skills', 'company', 'website'];
-  const filled = fields.filter(f => userData[f]).length;
-  const pct = Math.round((filled / fields.length) * 100);
-
-  const completionItems = [
-    { label: 'Add a professional bio', done: !!userData.bio },
-    { label: 'Set your location', done: !!userData.location },
-    { label: userData.role === 'customer' ? 'Add company name' : 'Add your skills', done: !!(userData.skills || userData.company) },
-  ];
+  const filledFields = fields.filter(f => userData[f]).length;
+  const completionPercentage = Math.round((filledFields / fields.length) * 100);
 
   return (
-    <div className="min-h-screen pb-28 md:pb-10" style={{ background: '#F5F5FF' }}>
-
-      {/* ─── Welcome Banner ─── */}
-      <div className="mx-4 mt-5 md:mx-auto md:max-w-2xl">
-        <div className="rounded-[2rem] overflow-hidden relative animate-fade-in"
-          style={{ background: 'linear-gradient(135deg, #EEF2FF 0%, #E0E7FF 60%, #DDD6FE 100%)', minHeight: '160px' }}>
-          {/* Illustration placeholder top-right */}
-          <div className="absolute top-4 right-4 w-32 h-24 md:w-40 md:h-28 rounded-2xl flex items-center justify-center"
-            style={{ background: 'rgba(255,255,255,0.6)', backdropFilter: 'blur(8px)' }}>
-            <TrendingUp size={40} className="text-violet-400" />
+    <div className="min-h-screen bg-[#F8FAFF] pb-32 md:pb-10 font-sans">
+      
+      {/* ─── CUSTOM HEADER (Matches Image) ─── */}
+      <header className="bg-white px-6 py-4 flex justify-between items-center border-b border-slate-50 sticky top-0 z-50">
+        <div className="flex items-center gap-2">
+          <img src="/logo.png" alt="Logo" className="h-8 w-auto" />
+          <span className="text-xl font-bold text-[#1e1b4b]">Quub.</span>
+        </div>
+        <div className="flex items-center gap-4">
+          <div className="relative">
+            <Bell size={24} className="text-slate-400" />
+            <div className="absolute -top-1 -right-1 w-2.5 h-2.5 bg-indigo-500 rounded-full border-2 border-white"></div>
           </div>
+          <div className="flex items-center gap-2 bg-slate-50 p-1 pr-3 rounded-full border border-slate-100">
+            <img src={userData.avatarUrl} alt="" className="w-8 h-8 rounded-full border border-white" />
+            <span className="text-sm font-bold text-slate-700 hidden sm:inline">{userData.name}</span>
+            <ChevronDown size={14} className="text-slate-400" />
+          </div>
+        </div>
+      </header>
 
-          <div className="p-7 pr-36 md:pr-44">
-            <p className="text-slate-600 text-base font-semibold mb-1">Welcome back,</p>
-            <h1 className="text-2xl md:text-3xl font-black text-slate-900 mb-1">
-              {userData.name}! <span>👋</span>
+      <div className="container mx-auto px-4 py-8 max-w-4xl space-y-8 animate-fade-in">
+        
+        {/* ─── WELCOME SECTION ─── */}
+        <div className="flex flex-col md:flex-row justify-between items-start gap-6 relative">
+          <div className="space-y-2">
+            <h2 className="text-2xl font-medium text-slate-500 leading-tight">Welcome back,</h2>
+            <h1 className="text-4xl md:text-5xl font-black text-[#1e1b4b] tracking-tight">
+              {userData.name}! <span className="inline-block animate-bounce">👋</span>
             </h1>
-            <p className="text-slate-500 text-sm mb-5 font-medium">Here's what's happening with your account today.</p>
-            <Link to="/profile"
-              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-2xl text-white text-sm font-bold transition-all active:scale-95"
-              style={{ background: 'linear-gradient(135deg, #7C3AED, #6D28D9)', boxShadow: '0 6px 20px rgba(124,58,237,0.35)' }}>
-              View Profile <ArrowRight size={16} />
-            </Link>
+            <p className="text-slate-400 font-medium text-lg pt-2">Here's what's happening with your account today.</p>
+            <div className="pt-4">
+              <Link to="/profile" className="btn bg-indigo-600 hover:bg-indigo-700 text-white rounded-2xl px-8 py-3.5 flex items-center gap-2 shadow-xl shadow-indigo-100 font-bold transition-all hover:-translate-y-0.5 active:scale-95">
+                View Profile <ArrowRight size={18} />
+              </Link>
+            </div>
+          </div>
+          
+          {/* Decorative Graph Box (From Image) */}
+          <div className="hidden lg:block w-64 h-48 bg-white rounded-3xl border border-slate-100 shadow-2xl p-6 relative">
+             <div className="absolute top-6 left-6 w-10 h-10 bg-indigo-50 text-indigo-600 rounded-xl flex items-center justify-center">
+               <TrendingUp size={20} />
+             </div>
+             <div className="mt-12">
+               <svg viewBox="0 0 100 30" className="w-full h-full text-indigo-400">
+                  <path d="M0,25 Q20,10 40,20 T80,5 T100,15" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" />
+                  <path d="M0,25 Q20,10 40,20 T80,5 T100,15 V30 H0 Z" fill="url(#gradient)" opacity="0.1" />
+                  <defs>
+                    <linearGradient id="gradient" x1="0" y1="0" x2="0" y2="1">
+                      <stop offset="0%" stopColor="currentColor" />
+                      <stop offset="100%" stopColor="white" />
+                    </linearGradient>
+                  </defs>
+               </svg>
+             </div>
           </div>
         </div>
-      </div>
 
-      {/* ─── Stats Row ─── */}
-      <div className="px-4 mt-5 md:mx-auto md:max-w-2xl">
-        <div className="grid grid-cols-3 gap-3">
-          {[
-            {
-              icon: Briefcase, iconBg: 'rgba(16,185,129,0.12)', iconColor: '#10B981',
-              value: stats.jobs, label: userData.role === 'customer' ? 'Jobs Posted' : 'Jobs Applied',
-              sub: stats.jobs === 0 ? 'Get started!' : 'Keep going!', barColor: '#10B981'
-            },
-            {
-              icon: MessageSquare, iconBg: 'rgba(99,102,241,0.12)', iconColor: '#6366F1',
-              value: unreadCount, label: 'Unread Msgs',
-              sub: unreadCount === 0 ? 'No new msgs' : 'Check inbox', barColor: '#6366F1'
-            },
-            {
-              icon: Crown, iconBg: 'rgba(139,92,246,0.12)', iconColor: '#8B5CF6',
-              value: 'Active', label: 'Status',
-              sub: 'Account active', barColor: '#8B5CF6'
-            },
-          ].map(({ icon: Icon, iconBg, iconColor, value, label, sub, barColor }) => (
-            <div key={label} className="bg-white rounded-[1.5rem] p-4 shadow-sm border border-slate-100 flex flex-col gap-2 relative overflow-hidden animate-fade-in">
-              <div className="w-9 h-9 rounded-xl flex items-center justify-center mb-1" style={{ background: iconBg }}>
-                <Icon size={18} style={{ color: iconColor }} />
+        {/* ─── STATS ROW ─── */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div className="bg-white p-6 rounded-[2.5rem] border border-slate-100 shadow-sm relative overflow-hidden flex flex-col gap-2">
+            <div className="w-12 h-12 bg-green-50 text-green-500 rounded-2xl flex items-center justify-center mb-1">
+              <Briefcase size={24} />
+            </div>
+            <div className="flex items-baseline gap-2">
+              <span className="text-3xl font-black text-slate-900">{stats.jobs}</span>
+              <span className="text-sm font-bold text-slate-400">{userData.role === 'customer' ? 'Jobs Posted' : 'Jobs Applied'}</span>
+            </div>
+            <p className="text-[11px] font-bold text-slate-400 uppercase tracking-wider">Keep applying!</p>
+            <div className="absolute bottom-0 left-0 right-0 h-1 bg-green-500 opacity-20"></div>
+          </div>
+
+          <div className="bg-white p-6 rounded-[2.5rem] border border-slate-100 shadow-sm relative overflow-hidden flex flex-col gap-2">
+            <div className="w-12 h-12 bg-blue-50 text-blue-500 rounded-2xl flex items-center justify-center mb-1">
+              <MessageSquare size={24} />
+            </div>
+            <div className="flex items-baseline gap-2">
+              <span className="text-3xl font-black text-slate-900">{unreadCount}</span>
+              <span className="text-sm font-bold text-slate-400">Unread Messages</span>
+            </div>
+            <p className="text-[11px] font-bold text-slate-400 uppercase tracking-wider">No new messages</p>
+            <div className="absolute bottom-0 left-0 right-0 h-1 bg-blue-500 opacity-20"></div>
+          </div>
+
+          <div className="bg-white p-6 rounded-[2.5rem] border border-slate-100 shadow-sm relative overflow-hidden flex flex-col gap-2">
+            <div className="w-12 h-12 bg-purple-50 text-purple-500 rounded-2xl flex items-center justify-center mb-1">
+              <TrendingUp size={24} />
+            </div>
+            <div className="flex items-baseline gap-2">
+              <span className="text-2xl font-black text-slate-900">Active</span>
+              <span className="text-sm font-bold text-slate-400">Account Status</span>
+            </div>
+            <p className="text-[11px] font-bold text-slate-400 uppercase tracking-wider">Your account is active</p>
+            <div className="absolute bottom-0 left-0 right-0 h-1 bg-purple-500 opacity-20"></div>
+          </div>
+        </div>
+
+        {/* ─── QUICK ACTIONS ─── */}
+        <div className="space-y-4">
+          <div className="flex justify-between items-center">
+            <h3 className="text-xl font-black text-[#1e1b4b]">Quick Actions</h3>
+            <Link to="/jobs" className="text-indigo-600 font-bold text-sm">View All</Link>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="bg-white p-6 rounded-[2.5rem] border border-slate-100 shadow-sm flex flex-col gap-4 group hover:border-indigo-100 transition-all">
+              <div className="w-14 h-14 bg-indigo-50 text-indigo-500 rounded-[1.5rem] flex items-center justify-center">
+                <Briefcase size={28} />
               </div>
-              <div className="text-xl md:text-2xl font-black text-slate-900 leading-none">{value}</div>
-              <div className="text-[11px] font-black text-slate-700 leading-tight">{label}</div>
-              <div className="text-[10px] text-slate-400 font-semibold">{sub}</div>
-              {/* Bottom bar accent */}
-              <div className="absolute bottom-0 left-0 right-0 h-0.5 rounded-full" style={{ background: barColor, opacity: 0.4 }} />
+              <div>
+                <h4 className="font-black text-slate-900 text-lg mb-1">Browse All Jobs</h4>
+                <p className="text-slate-400 text-sm font-medium leading-relaxed">Find the perfect project for your skills and expertise.</p>
+              </div>
+              <Link to="/jobs" className="text-indigo-600 font-bold text-sm flex items-center gap-2 group-hover:gap-3 transition-all">
+                Explore Jobs <ArrowRight size={16} />
+              </Link>
             </div>
-          ))}
-        </div>
-      </div>
 
-      {/* ─── Quick Actions ─── */}
-      <div className="px-4 mt-7 md:mx-auto md:max-w-2xl animate-fade-in">
-        <div className="flex justify-between items-center mb-4">
-          <h2 className="text-lg font-black text-slate-900">Quick Actions</h2>
-          <Link to="/jobs" className="text-sm font-bold text-violet-600 hover:underline">View All</Link>
-        </div>
-        <div className="grid grid-cols-2 gap-3">
-          {/* Browse Jobs */}
-          <div className="bg-white rounded-[1.75rem] p-5 border border-slate-100 shadow-sm flex flex-col gap-3 hover:-translate-y-1 transition-all duration-200">
-            <div className="w-11 h-11 rounded-2xl flex items-center justify-center" style={{ background: 'rgba(99,102,241,0.1)' }}>
-              <Briefcase size={22} className="text-indigo-600" />
+            <div className="bg-white p-6 rounded-[2.5rem] border border-slate-100 shadow-sm flex flex-col gap-4 group hover:border-blue-100 transition-all">
+              <div className="w-14 h-14 bg-blue-50 text-blue-500 rounded-[1.5rem] flex items-center justify-center">
+                <MessageSquare size={28} />
+              </div>
+              <div>
+                <h4 className="font-black text-slate-900 text-lg mb-1">Check Messages</h4>
+                <p className="text-slate-400 text-sm font-medium leading-relaxed">Keep up with your active conversations.</p>
+              </div>
+              <Link to="/messages" className="text-blue-600 font-bold text-sm flex items-center gap-2 group-hover:gap-3 transition-all">
+                View Messages <ArrowRight size={16} />
+              </Link>
             </div>
-            <div>
-              <p className="font-black text-slate-900 text-sm leading-tight mb-1">
-                {userData.role === 'customer' ? 'Post a Job' : 'Browse All Jobs'}
-              </p>
-              <p className="text-slate-400 text-xs font-medium leading-relaxed">
-                {userData.role === 'customer' ? 'Hire talented workers for your project.' : 'Find the perfect project for your skills.'}
-              </p>
-            </div>
-            <Link to={userData.role === 'customer' ? '/post-job' : '/jobs'}
-              className="inline-flex items-center gap-1.5 text-violet-600 font-bold text-xs hover:gap-2.5 transition-all">
-              {userData.role === 'customer' ? 'Post Job' : 'Explore Jobs'} <ArrowRight size={14} />
-            </Link>
-          </div>
-
-          {/* Check Messages */}
-          <div className="bg-white rounded-[1.75rem] p-5 border border-slate-100 shadow-sm flex flex-col gap-3 hover:-translate-y-1 transition-all duration-200">
-            <div className="w-11 h-11 rounded-2xl flex items-center justify-center" style={{ background: 'rgba(139,92,246,0.1)' }}>
-              <MessageSquare size={22} className="text-violet-600" />
-            </div>
-            <div>
-              <p className="font-black text-slate-900 text-sm leading-tight mb-1">Check Messages</p>
-              <p className="text-slate-400 text-xs font-medium leading-relaxed">Keep up with your active conversations.</p>
-            </div>
-            <Link to="/messages"
-              className="inline-flex items-center gap-1.5 text-violet-600 font-bold text-xs hover:gap-2.5 transition-all">
-              View Messages <ArrowRight size={14} />
-            </Link>
           </div>
         </div>
-      </div>
 
-      {/* ─── Profile Completion ─── */}
-      <div className="px-4 mt-7 md:mx-auto md:max-w-2xl animate-fade-in">
-        <div className="bg-white rounded-[1.75rem] p-6 border border-slate-100 shadow-sm relative overflow-hidden">
-          {/* Illustration */}
-          <div className="absolute right-5 top-5 opacity-20 hidden sm:block">
-            <div className="w-20 h-20 rounded-full flex items-center justify-center" style={{ background: 'linear-gradient(135deg, #7C3AED, #06B6D4)' }}>
-              <CheckCircle2 size={40} className="text-white" />
+        {/* ─── PROFILE COMPLETION (Matches Image) ─── */}
+        <div className="bg-white p-8 rounded-[2.5rem] border border-slate-100 shadow-sm space-y-6 relative overflow-hidden">
+          <div className="flex justify-between items-center">
+            <h3 className="text-xl font-black text-[#1e1b4b]">Profile Completion</h3>
+            <span className="text-xs font-bold text-slate-400 bg-slate-50 px-3 py-1 rounded-full uppercase tracking-tighter">Step {filledFields} of 5</span>
+          </div>
+          
+          <div className="flex flex-col md:flex-row gap-10 items-center">
+            <div className="flex-1 space-y-6">
+              <div className="text-5xl font-black text-indigo-600">{completionPercentage}%</div>
+              
+              <div className="w-full bg-slate-100 h-3 rounded-full overflow-hidden">
+                <div 
+                  className="bg-indigo-600 h-full transition-all duration-1000 ease-out"
+                  style={{ width: `${completionPercentage}%` }}
+                ></div>
+              </div>
+
+              <ul className="space-y-4">
+                <li className={`flex items-center gap-3 text-sm font-bold ${userData.bio ? 'text-slate-300 line-through' : 'text-slate-600'}`}>
+                  {userData.bio ? <CheckCircle2 size={20} className="text-indigo-400" /> : <Circle size={20} className="text-slate-200" />}
+                  Add a professional bio
+                </li>
+                <li className={`flex items-center gap-3 text-sm font-bold ${userData.location ? 'text-slate-300 line-through' : 'text-slate-600'}`}>
+                  {userData.location ? <CheckCircle2 size={20} className="text-indigo-400" /> : <Circle size={20} className="text-slate-200" />}
+                  Set your location
+                </li>
+                <li className={`flex items-center gap-3 text-sm font-bold ${userData.skills ? 'text-slate-300 line-through' : 'text-slate-600'}`}>
+                  {userData.skills ? <CheckCircle2 size={20} className="text-indigo-400" /> : <Circle size={20} className="text-slate-200" />}
+                  Add your skills
+                </li>
+              </ul>
+            </div>
+            
+            {/* Illustration (From Image) */}
+            <div className="hidden md:block w-48 h-64 bg-indigo-50/50 rounded-[2rem] relative p-6 border border-indigo-50">
+               <div className="w-full h-40 bg-white rounded-2xl shadow-lg p-4 space-y-2">
+                 <div className="w-8 h-8 rounded-full bg-indigo-100 mx-auto"></div>
+                 <div className="h-2 w-3/4 bg-slate-100 rounded mx-auto"></div>
+                 <div className="h-2 w-1/2 bg-slate-50 rounded mx-auto"></div>
+                 <div className="h-2 w-2/3 bg-slate-50 rounded mx-auto"></div>
+               </div>
+               <div className="absolute bottom-4 right-4 w-12 h-12 bg-indigo-600 rounded-2xl flex items-center justify-center text-white shadow-xl">
+                 <span className="text-2xl font-bold">+</span>
+               </div>
             </div>
           </div>
 
-          <div className="flex items-center justify-between mb-4">
-            <h2 className="text-lg font-black text-slate-900">Profile Completion</h2>
-            <span className="text-xs font-bold text-slate-400 bg-slate-50 px-3 py-1.5 rounded-xl">
-              Step {filled} of {fields.length}
-            </span>
-          </div>
-
-          <div className="text-4xl font-black text-violet-600 mb-3">{pct}%</div>
-
-          {/* Progress bar */}
-          <div className="w-full h-2.5 bg-slate-100 rounded-full overflow-hidden mb-5">
-            <div className="h-full rounded-full transition-all duration-1000"
-              style={{ width: `${pct}%`, background: 'linear-gradient(90deg, #7C3AED, #06B6D4)' }} />
-          </div>
-
-          {/* Checklist */}
-          <ul className="space-y-3 mb-6">
-            {completionItems.map(({ label, done }) => (
-              <li key={label} className="flex items-center gap-3 text-sm">
-                {done ? (
-                  <CheckCircle2 size={20} className="text-violet-500 flex-shrink-0" />
-                ) : (
-                  <Circle size={20} className="text-slate-300 flex-shrink-0" />
-                )}
-                <span className={`font-semibold ${done ? 'line-through text-slate-300' : 'text-slate-600'}`}>
-                  {label}
-                </span>
-              </li>
-            ))}
-          </ul>
-
-          <button onClick={() => navigate('/profile')}
-            className="w-full py-4 rounded-2xl text-white font-black text-base transition-all active:scale-98 hover:opacity-90"
-            style={{ background: 'linear-gradient(135deg, #7C3AED 0%, #6D28D9 100%)', boxShadow: '0 6px 24px rgba(124,58,237,0.3)' }}>
+          <button 
+            onClick={() => navigate('/profile')}
+            className="w-full py-4 bg-indigo-600 text-white font-black text-lg rounded-2xl hover:bg-indigo-700 transition-colors shadow-xl shadow-indigo-100 active:scale-95"
+          >
             Complete Profile
           </button>
         </div>
-      </div>
 
-      {/* ─── Need Help ─── */}
-      <div className="px-4 mt-5 md:mx-auto md:max-w-2xl animate-fade-in">
-        <div className="rounded-[1.75rem] p-6 flex items-center justify-between gap-4"
-          style={{ background: 'linear-gradient(135deg, #1E1B4B 0%, #312E81 100%)' }}>
+        {/* ─── NEED HELP SECTION (Bottom Bar) ─── */}
+        <div className="bg-[#1e1b4b] p-6 rounded-[2rem] flex items-center justify-between gap-4 text-white shadow-2xl">
           <div className="flex items-center gap-4">
-            <div className="w-12 h-12 rounded-2xl flex items-center justify-center flex-shrink-0"
-              style={{ background: 'rgba(255,255,255,0.1)' }}>
-              <HeadphonesIcon size={24} className="text-white" />
+            <div className="w-12 h-12 bg-white/10 rounded-2xl flex items-center justify-center">
+              <Headphones size={24} className="text-indigo-300" />
             </div>
             <div>
-              <h3 className="font-black text-white text-base mb-0.5">Need Help?</h3>
-              <p className="text-white/50 text-xs font-semibold">Our support team is available 24/7 to help you grow your career.</p>
+              <h4 className="font-bold text-lg leading-tight">Need Help?</h4>
+              <p className="text-slate-400 text-xs font-medium">Our support team is available 24/7 to help you grow your career.</p>
             </div>
           </div>
-          <button className="bg-white text-slate-900 font-black text-xs px-4 py-2.5 rounded-xl flex-shrink-0 hover:bg-slate-100 transition-colors whitespace-nowrap">
+          <button className="bg-white/10 hover:bg-white/20 border border-white/20 px-6 py-2 rounded-xl text-xs font-black transition-colors">
             Contact Support
           </button>
         </div>
+
       </div>
     </div>
   );
