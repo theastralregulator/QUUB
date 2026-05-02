@@ -10,6 +10,7 @@ import PostJob from './pages/PostJob';
 import Jobs from './pages/Jobs';
 import JobDetails from './pages/JobDetails';
 import Messages from './pages/Messages';
+import Profile from './pages/Profile';
 
 function PrivateRoute({ children }) {
   const { currentUser } = useAuth();
@@ -35,6 +36,7 @@ function App() {
           <Route path="/jobs" element={<PrivateRoute><Jobs /></PrivateRoute>} />
           <Route path="/jobs/:id" element={<PrivateRoute><JobDetails /></PrivateRoute>} />
           <Route path="/messages" element={<PrivateRoute><Messages /></PrivateRoute>} />
+          <Route path="/profile" element={<PrivateRoute><Profile /></PrivateRoute>} />
         </Routes>
       </div>
     </Router>

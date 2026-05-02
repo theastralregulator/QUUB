@@ -64,7 +64,7 @@ export default function Navbar() {
 
             <div className="w-px h-6 bg-gray-300 mx-2"></div>
 
-            <Link to="/dashboard" className="flex items-center gap-2 hover:bg-gray-50 p-1 pr-3 rounded-full transition-colors border border-transparent hover:border-gray-200">
+            <Link to="/profile" className="flex items-center gap-2 hover:bg-gray-50 p-1 pr-3 rounded-full transition-colors border border-transparent hover:border-gray-200">
               <img 
                 src={userData?.avatarUrl || `https://api.dicebear.com/7.x/avataaars/svg?seed=${currentUser.uid}`} 
                 alt="Profile" 
@@ -122,7 +122,7 @@ export default function Navbar() {
             )}
           </Link>
 
-          <Link to="/dashboard" className={linkStyle('/dashboard')}>
+          <Link to="/profile" className={linkStyle('/profile')}>
             <User size={24} />
             <span className="text-[10px]">Profile</span>
           </Link>

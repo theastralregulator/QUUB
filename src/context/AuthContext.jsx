@@ -8,7 +8,7 @@ import {
   GoogleAuthProvider,
   signInWithPopup
 } from 'firebase/auth';
-import { doc, getDoc, setDoc, collection, query, where, onSnapshot } from 'firebase/firestore';
+import { doc, getDoc, setDoc, updateDoc, collection, query, where, onSnapshot } from 'firebase/firestore';
 
 const AuthContext = createContext();
 
@@ -103,6 +103,13 @@ export function AuthProvider({ children }) {
     return unsubscribeAuth;
   }, []);
 
+  async function updateProfileData(newData) {
+    if (!currentUser) return;
+    const docRef = doc(db, "Users", currentUser.uid);
+    await updateDoc(docRef, newData);
+    setUserData(prev => ({ ...prev, ...newData }));
+  }
+
   // Global listener for unread messages
   useEffect(() => {
     if (!currentUser) {
@@ -131,7 +138,8 @@ export function AuthProvider({ children }) {
     login,
     loginWithGoogle,
     register,
-    logout
+    logout,
+    updateProfileData
   };
 
   return (
