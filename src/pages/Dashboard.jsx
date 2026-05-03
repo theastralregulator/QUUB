@@ -3,6 +3,7 @@ import { useAuth } from '../context/AuthContext';
 import { useNavigate, Link } from 'react-router-dom';
 import { db } from '../firebase';
 import { collection, query, where, getDocs } from 'firebase/firestore';
+import { 
   Briefcase, MessageSquare, ArrowRight, TrendingUp,
   Headphones, CheckCircle2, Circle, Crown, User
 } from 'lucide-react';
