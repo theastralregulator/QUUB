@@ -44,27 +44,8 @@ export default function JobDetails() {
     fetchJobAndApplication();
   }, [id, userData]);
 
-  async function handleApply() {
-    setApplying(true);
-    try {
-      await addDoc(collection(db, "Applications"), {
-        jobId: job.id,
-        jobTitle: job.title,
-        customerId: job.customerId,
-        workerId: userData.uid,
-        workerName: userData.name,
-        workerAvatar: userData.avatarUrl,
-        workerEmail: userData.email,
-        status: "pending",
-        createdAt: new Date().toISOString()
-      });
-      setHasApplied(true);
-      setMessage("Application submitted successfully!");
-    } catch (error) {
-      console.error("Error applying:", error);
-      setMessage("Failed to submit application.");
-    }
-    setApplying(false);
+  function handleContact() {
+    navigate(`/messages?contactId=${job.customerId}`);
   }
 
   if (loading) return <div className="container" style={{ paddingTop: '3rem', textAlign: 'center' }}>Loading details...</div>;
@@ -123,23 +104,15 @@ export default function JobDetails() {
 
         <div style={{ borderTop: '1px solid var(--border-color)', paddingTop: '2rem' }}>
           {userData?.role === 'worker' ? (
-            hasApplied ? (
-              <div style={{ padding: '1rem', backgroundColor: 'rgba(16, 185, 129, 0.1)', color: 'var(--success-color)', borderRadius: 'var(--border-radius-sm)', textAlign: 'center', fontWeight: '500' }}>
-                You have expressed interest in this job!
-              </div>
-            ) : (
-              <div>
-                {message && <div className="error-text" style={{ marginBottom: '1rem', textAlign: 'center', color: 'var(--success-color)' }}>{message}</div>}
-                <button 
-                  className="btn btn-primary w-full" 
-                  style={{ padding: '1rem', fontSize: '1.1rem' }}
-                  onClick={handleApply}
-                  disabled={applying}
-                >
-                  {applying ? 'Submitting...' : "I'm Interested"}
-                </button>
-              </div>
-            )
+            <div>
+              <button 
+                className="btn btn-primary w-full" 
+                style={{ padding: '1rem', fontSize: '1.1rem', background: 'linear-gradient(135deg, #7C3AED, #06B6D4)', border: 'none', borderRadius: '1rem', fontWeight: 'bold' }}
+                onClick={handleContact}
+              >
+                Contact Directly
+              </button>
+            </div>
           ) : userData?.uid === job.customerId ? (
             <div style={{ textAlign: 'center', color: 'var(--text-secondary)', padding: '1rem' }}>
               You posted this job. Applications will appear in your dashboard soon.
