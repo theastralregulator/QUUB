@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta name="description" content="QUUB Messages – Chat with talent and manage your projects.">
     <link rel="icon" type="image/svg+xml" href="/quub-icon.svg" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -11,7 +11,7 @@
     <title>Messages - QUUB</title>
     <link rel="stylesheet" href="/style.css">
 </head>
-<body class="dashboard-page messages-page">
+<body class="dashboard-page messages-page mobile-only">
     <div class="dashboard-wrapper">
         <!-- Header -->
         <header class="db-header">
@@ -19,7 +19,7 @@
                 <div class="db-logo-icon">
                     <img src="/quub-logo.png" alt="QUUB Logo" class="logo-img" />
                 </div>
-                <span class="db-logo-text">QUUB</span>
+                <span class="db-logo-text">Quub.</span>
             </div>
             <div class="db-header-right">
                 <div class="user-profile-menu">
@@ -30,31 +30,25 @@
 
         <main class="db-content">
             <div class="messages-container">
-                <!-- Inbox List -->
                 <div class="inbox-list" id="inbox-list">
-                    <div class="section-header">
+                    <div class="section-header px-4">
                         <h2>Messages</h2>
-                        <div class="search-messages">
-                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-                        </div>
                     </div>
-                    
                     <div class="convo-list">
-                        <div class="convo-item active" onclick="openChat('Annie')">
+                        <div class="convo-item active" onclick="openChat()">
                             <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Annie" alt="Annie" class="convo-avatar">
                             <div class="convo-info">
                                 <div class="convo-top">
-                                    <span class="convo-name">Annie</span>
-                                    <span class="convo-time">2m</span>
+                                    <span class="convo-name">Annie Roberts</span>
+                                    <span class="convo-time">Just now</span>
                                 </div>
-                                <p class="convo-preview">Hey! I saw your React project and I'm interested in working with you.</p>
+                                <p class="convo-preview">Hey! I saw your React project and I'm interested...</p>
                             </div>
                             <div class="unread-dot"></div>
                         </div>
                     </div>
                 </div>
 
-                <!-- Chat Area (Hidden on mobile unless active) -->
                 <div class="chat-area" id="chat-area">
                     <div class="chat-header">
                         <button class="back-btn" onclick="closeChat()">
@@ -63,15 +57,11 @@
                         <div class="chat-user">
                             <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Annie" alt="Annie" class="chat-avatar">
                             <div class="chat-user-info">
-                                <span class="chat-name">Annie</span>
+                                <span class="chat-name">Annie Roberts</span>
                                 <span class="chat-status">Online</span>
                             </div>
                         </div>
-                        <div class="chat-actions">
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="1"/><circle cx="12" cy="5" r="1"/><circle cx="12" cy="19" r="1"/></svg>
-                        </div>
                     </div>
-
                     <div class="chat-messages">
                         <div class="msg-group received">
                             <div class="msg-bubble">Hey! I saw your React project and I'm interested in working with you.</div>
@@ -82,7 +72,6 @@
                             <span class="msg-time">2:32 PM</span>
                         </div>
                     </div>
-
                     <div class="chat-input-wrap">
                         <div class="chat-input-bar">
                             <input type="text" placeholder="Type a message...">
@@ -115,14 +104,13 @@
             </a>
         </nav>
     </div>
-    <script type="module" src="/main.js"></script>
     <script>
         function openChat() {
-            document.getElementById('inbox-list').classList.add('hidden');
+            document.getElementById('inbox-list').style.display = 'none';
             document.getElementById('chat-area').classList.add('active');
         }
         function closeChat() {
-            document.getElementById('inbox-list').classList.remove('hidden');
+            document.getElementById('inbox-list').style.display = 'flex';
             document.getElementById('chat-area').classList.remove('active');
         }
     </script>
