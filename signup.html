@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Join QUUB – Create your free account and get started with the premium freelance marketplace.">
+    <link rel="icon" type="image/svg+xml" href="/quub-icon.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+    <title>Join QUUB - Create Your Account</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body class="auth-page">
+    <div class="page-wrapper">
+        <!-- Header -->
+        <header class="header auth-header">
+            <a href="/" class="logo">
+                <div class="logo-icon">
+                    <img src="/quub-logo.png" alt="QUUB Logo" class="logo-img" />
+                </div>
+                <span class="logo-text">QUUB</span>
+            </a>
+        </header>
+
+        <!-- Auth Card -->
+        <main class="auth-container">
+            <div class="auth-card">
+                <div class="badge auth-badge">
+                    <span class="badge-icon">✦</span>
+                    <span>Create your account</span>
+                </div>
+                
+                <h1 class="auth-title">Join QUUB</h1>
+                <p class="auth-subtitle">Create your free account and get started</p>
+
+                <form class="auth-form" id="signup-form" onsubmit="event.preventDefault(); window.location.href='/dashboard.html'">
+                    <!-- Full Name -->
+                    <div class="input-group">
+                        <label for="fullname">Full Name</label>
+                        <div class="input-wrapper">
+                            <span class="input-icon">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                            </span>
+                            <input type="text" id="fullname" placeholder="Enter your full name" required>
+                        </div>
+                    </div>
+
+                    <!-- Email Address -->
+                    <div class="input-group">
+                        <label for="email">Email Address</label>
+                        <div class="input-wrapper">
+                            <span class="input-icon">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                            </span>
+                            <input type="email" id="email" placeholder="Enter your email address" required>
+                        </div>
+                    </div>
+
+                    <!-- Phone Number -->
+                    <div class="input-group">
+                        <label for="phone">Phone Number</label>
+                        <div class="phone-input-wrapper">
+                            <div class="country-code" id="country-selector">
+                                <img src="https://flagcdn.com/w20/in.png" alt="India" class="flag-icon" id="current-flag">
+                                <span id="current-code">+91</span>
+                                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+                                
+                                <!-- Simple dropdown menu (hidden by default) -->
+                                <div class="country-dropdown" id="country-dropdown">
+                                    <div class="country-option" data-code="+91" data-flag="in">
+                                        <img src="https://flagcdn.com/w20/in.png" alt="India"> <span>India (+91)</span>
+                                    </div>
+                                    <div class="country-option" data-code="+234" data-flag="ng">
+                                        <img src="https://flagcdn.com/w20/ng.png" alt="Nigeria"> <span>Nigeria (+234)</span>
+                                    </div>
+                                    <div class="country-option" data-code="+1" data-flag="us">
+                                        <img src="https://flagcdn.com/w20/us.png" alt="USA"> <span>USA (+1)</span>
+                                    </div>
+                                    <div class="country-option" data-code="+44" data-flag="gb">
+                                        <img src="https://flagcdn.com/w20/gb.png" alt="UK"> <span>UK (+44)</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="input-wrapper phone-number-input">
+                                <span class="input-icon">
+                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.38 2 2 0 0 1 3.6 1.21h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.91a16 16 0 0 0 6.06 6.06l.96-.96a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                                </span>
+                                <input type="tel" id="phone" placeholder="Enter your phone number" required>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Password -->
+                    <div class="input-group">
+                        <label for="password">Password</label>
+                        <div class="input-wrapper">
+                            <span class="input-icon">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+                            </span>
+                            <input type="password" id="password" placeholder="Create a strong password" required>
+                            <button type="button" class="password-toggle">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                            </button>
+                        </div>
+                        <div class="password-strength-container">
+                            <span class="strength-label">Password strength</span>
+                            <div class="strength-meter">
+                                <div class="meter-segment"></div>
+                                <div class="meter-segment"></div>
+                                <div class="meter-segment"></div>
+                                <div class="meter-segment"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Confirm Password -->
+                    <div class="input-group">
+                        <label for="confirm-password">Confirm Password</label>
+                        <div class="input-wrapper">
+                            <span class="input-icon">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+                            </span>
+                            <input type="password" id="confirm-password" placeholder="Confirm your password" required>
+                            <button type="button" class="password-toggle">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Agreement -->
+                    <div class="agreement">
+                        <div class="checkbox-icon">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg>
+                        </div>
+                        <p>By creating an account, you agree to our <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a></p>
+                    </div>
+
+                    <!-- Sign Up Button -->
+                    <button type="submit" class="btn-primary auth-btn">
+                        <span>Sign Up</span> &nbsp;→
+                    </button>
+                </form>
+
+                <p class="auth-footer-text">Already have an account? <a href="/signin.html">Log In</a></p>
+            </div>
+
+            <!-- Features Footer -->
+            <div class="auth-features">
+                <div class="auth-feature-item">
+                    <div class="auth-feature-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg>
+                    </div>
+                    <h4>Secure & Safe</h4>
+                    <p>Your data is protected with industry-standard security.</p>
+                </div>
+                <div class="auth-feature-item">
+                    <div class="auth-feature-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+                    </div>
+                    <h4>Lightning Fast</h4>
+                    <p>Get started in minutes and find opportunities faster.</p>
+                </div>
+                <div class="auth-feature-item">
+                    <div class="auth-feature-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                    </div>
+                    <h4>Trusted by 10K+</h4>
+                    <p>Join thousands of professionals growing their careers.</p>
+                </div>
+            </div>
+        </main>
+    </div>
+    <script type="module" src="/main.js"></script>
+</body>
+</html>

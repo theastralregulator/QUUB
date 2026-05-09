@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Sign in to QUUB – Access the premium freelance marketplace.">
+    <link rel="icon" type="image/svg+xml" href="/quub-icon.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+    <title>Sign In - QUUB</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body class="auth-page">
+    <div class="page-wrapper">
+        <!-- Header -->
+        <header class="header auth-header">
+            <a href="/" class="logo">
+                <div class="logo-icon">
+                    <img src="/quub-logo.png" alt="QUUB Logo" class="logo-img" />
+                </div>
+                <span class="logo-text">QUUB</span>
+            </a>
+        </header>
+
+        <!-- Auth Card -->
+        <main class="auth-container">
+            <div class="auth-card">
+                <div class="badge auth-badge">
+                    <span class="badge-icon">✦</span>
+                    <span>Welcome back</span>
+                </div>
+                
+                <h1 class="auth-title">Sign In</h1>
+                <p class="auth-subtitle">Enter your credentials to access your account</p>
+
+                <form class="auth-form" id="signin-form" onsubmit="event.preventDefault(); window.location.href='/dashboard.html'">
+                    <!-- Email or Phone Number -->
+                    <div class="input-group">
+                        <label for="identifier">Email or Phone Number</label>
+                        <div class="input-wrapper">
+                            <span class="input-icon">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                            </span>
+                            <input type="text" id="identifier" placeholder="Enter your email or phone number" required>
+                        </div>
+                    </div>
+
+                    <!-- Password -->
+                    <div class="input-group">
+                        <label for="password">Password</label>
+                        <div class="input-wrapper">
+                            <span class="input-icon">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+                            </span>
+                            <input type="password" id="password" placeholder="Enter your password" required>
+                            <button type="button" class="password-toggle">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                            </button>
+                        </div>
+                        <div style="display: flex; justify-content: flex-end; margin-top: 4px;">
+                            <a href="#" style="font-size: 0.8rem; color: #a855f7; text-decoration: none; font-weight: 500;">Forgot password?</a>
+                        </div>
+                    </div>
+
+                    <!-- Sign In Button -->
+                    <button type="submit" class="btn-primary auth-btn">
+                        <span>Sign In</span> &nbsp;→
+                    </button>
+                </form>
+
+                <p class="auth-footer-text">Don't have an account? <a href="/signup.html">Sign Up</a></p>
+            </div>
+
+            <!-- Features Footer -->
+            <div class="auth-features">
+                <div class="auth-feature-item">
+                    <div class="auth-feature-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg>
+                    </div>
+                    <h4>Secure & Safe</h4>
+                    <p>Your data is protected with industry-standard security.</p>
+                </div>
+                <div class="auth-feature-item">
+                    <div class="auth-feature-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+                    </div>
+                    <h4>Lightning Fast</h4>
+                    <p>Get started in minutes and find opportunities faster.</p>
+                </div>
+                <div class="auth-feature-item">
+                    <div class="auth-feature-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                    </div>
+                    <h4>Trusted by 10K+</h4>
+                    <p>Join thousands of professionals growing their careers.</p>
+                </div>
+            </div>
+        </main>
+    </div>
+    <script type="module" src="/main.js"></script>
+</body>
+</html>

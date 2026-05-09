@@ -1,22 +1,21 @@
 /** @type {import('tailwindcss').Config} */
 export default {
   content: [
-    "./app/**/*.{js,ts,jsx,tsx,mdx}",
-    "./components/**/*.{js,ts,jsx,tsx,mdx}",
+    "./index.html",
+    "./src/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
     extend: {
       colors: {
-        background: "#050816",
-        quub: {
-          purple: "#A855F7",
-          cyan: "#22D3EE",
-        },
-      },
-      backgroundImage: {
-        "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
-        "gradient-conic":
-          "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
+        background: 'var(--bg-primary)',
+        surface: 'var(--bg-secondary)',
+        primary: 'var(--text-primary)',
+        secondary: 'var(--text-secondary)',
+        accent: 'var(--accent-color)',
+        'accent-hover': 'var(--accent-hover)',
+        danger: 'var(--danger-color)',
+        success: 'var(--success-color)',
+        border: 'var(--border-color)',
       },
     },
   },

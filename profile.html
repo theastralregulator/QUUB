@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="QUUB Profile – Showcase your skills and manage your portfolio.">
+    <link rel="icon" type="image/svg+xml" href="/quub-icon.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+    <title>Profile - QUUB</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body class="dashboard-page profile-page">
+    <div class="dashboard-wrapper">
+        <!-- Header -->
+        <header class="db-header translucent">
+            <div class="db-logo">
+                <div class="db-logo-icon">
+                    <img src="/quub-logo.png" alt="QUUB Logo" class="logo-img" />
+                </div>
+                <span class="db-logo-text">QUUB</span>
+            </div>
+            <div class="db-header-right">
+                <button class="settings-btn">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+                </button>
+            </div>
+        </header>
+
+        <main class="db-content no-padding">
+            <!-- Profile Hero -->
+            <section class="profile-hero">
+                <div class="hero-banner"></div>
+                <div class="profile-main-info">
+                    <div class="avatar-container">
+                        <img src="https://i.pravatar.cc/150?u=sabin" alt="Sabin Saji" class="large-avatar">
+                        <div class="verified-badge">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="white"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+                        </div>
+                    </div>
+                    <h1 class="profile-name">Sabin Saji</h1>
+                    <p class="profile-title">Full Stack Developer &amp; UI Designer</p>
+                    <div class="profile-stats">
+                        <div class="p-stat">
+                            <span class="p-stat-val">24</span>
+                            <span class="p-stat-lbl">Projects</span>
+                        </div>
+                        <div class="p-stat">
+                            <span class="p-stat-val">4.9</span>
+                            <span class="p-stat-lbl">Rating</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <div class="profile-sections px-4">
+                <!-- About Section -->
+                <section class="p-section card">
+                    <h3 class="section-title">About Me</h3>
+                    <p class="section-text">Passionate about creating beautiful and functional web applications. Specialized in React, Node.js, and modern UI/UX design. Delivering world-class results for elite projects.</p>
+                </section>
+
+                <!-- Skills Section -->
+                <section class="p-section card">
+                    <h3 class="section-title">Expertise</h3>
+                    <div class="skills-flex">
+                        <span class="skill-tag">React.js</span>
+                        <span class="skill-tag">TypeScript</span>
+                        <span class="skill-tag">UI Design</span>
+                        <span class="skill-tag">Node.js</span>
+                        <span class="skill-tag">Firebase</span>
+                    </div>
+                </section>
+
+                <!-- Location Section -->
+                <section class="p-section card">
+                    <h3 class="section-title">Location</h3>
+                    <div class="flex-row items-center gap-2 text-muted">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                        <span>Cochin, India</span>
+                    </div>
+                </section>
+            </div>
+            
+            <div class="px-4 pb-10">
+                <button class="btn-primary w-full shadow-lg">
+                    <span>Edit Profile</span>
+                </button>
+            </div>
+        </main>
+
+        <!-- Bottom Navigation -->
+        <nav class="bottom-nav">
+            <a href="/dashboard.html" class="nav-item">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+                <span>Home</span>
+            </a>
+            <a href="/jobs.html" class="nav-item">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
+                <span>Jobs</span>
+            </a>
+            <a href="/messages.html" class="nav-item">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+                <span>Messages</span>
+            </a>
+            <a href="/profile.html" class="nav-item active">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                <span>Profile</span>
+            </a>
+        </nav>
+    </div>
+    <script type="module" src="/main.js"></script>
+</body>
+</html>
