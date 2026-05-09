@@ -22,144 +22,105 @@ export default function Profile() {
   }
 
   return (
-    <div className="page-bg min-h-screen pb-28">
-      {/* Animated Hero Banner */}
-      <div className="relative overflow-hidden" style={{ height: '260px', background: 'linear-gradient(135deg, #4C1D95 0%, #7C3AED 40%, #06B6D4 100%)' }}>
-        <div style={{
-          position: 'absolute', inset: 0,
-          backgroundImage: 'linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px)',
-          backgroundSize: '40px 40px',
-          animation: 'gridDrift 20s linear infinite'
+    <div className="min-h-screen bg-[#060812] text-white pb-32">
+      {/* --- Profile Banner --- */}
+      <div className="relative h-28 bg-gradient-to-r from-violet-600 to-cyan-500 overflow-hidden">
+        <div className="absolute inset-0 opacity-20" style={{
+          backgroundImage: 'linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px)',
+          backgroundSize: '30px 30px'
         }} />
-        {/* Glowing orbs in banner */}
-        <div style={{ position: 'absolute', top: '-80px', right: '-60px', width: '240px', height: '240px', background: 'radial-gradient(circle, rgba(6,182,212,0.4) 0%, transparent 70%)', borderRadius: '50%' }} />
-        <div style={{ position: 'absolute', bottom: '-60px', left: '-40px', width: '180px', height: '180px', background: 'radial-gradient(circle, rgba(167,139,250,0.3) 0%, transparent 70%)', borderRadius: '50%' }} />
       </div>
 
-      <div className="container mx-auto px-4 -mt-20 relative z-10 animate-fade-in">
-        <div className="bg-white rounded-[2.5rem] border border-violet-100/50 shadow-2xl shadow-violet-100/40 overflow-hidden">
-          <div className="px-6 md:px-12 pt-10 pb-12">
-
-            {/* Header Row */}
-            <div className="flex flex-col md:flex-row items-center md:items-end gap-6 mb-10 pb-10 border-b border-slate-50">
-              <div className="relative group">
-                <div className="p-1 rounded-[2.5rem]" style={{ background: 'linear-gradient(135deg, #7C3AED, #06B6D4)' }}>
-                  <img src={userData.avatarUrl} alt=""
-                    className="w-32 h-32 md:w-36 md:h-36 rounded-[2.25rem] border-4 border-white object-cover shadow-xl" />
-                </div>
-                {isEditing && (
-                  <div className="absolute inset-0 bg-black/40 rounded-[2.5rem] flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all cursor-pointer">
-                    <Camera className="text-white" size={28} />
-                  </div>
-                )}
-              </div>
-
-              <div className="flex-1 text-center md:text-left">
-                <div className="flex flex-wrap items-center justify-center md:justify-start gap-3 mb-2">
-                  <h1 className="text-3xl md:text-4xl font-black text-slate-900 tracking-tight">{userData.name}</h1>
-                  <ShieldCheck size={24} className="text-violet-600" />
-                </div>
-                <div className="flex flex-wrap justify-center md:justify-start items-center gap-3 text-slate-400 font-bold text-sm">
-                  <span>@{userData.email.split('@')[0]}</span>
-                  <span className="px-3 py-1 rounded-full text-[11px] font-black text-violet-600"
-                    style={{ background: 'rgba(124,58,237,0.1)' }}>
-                    <Sparkles size={11} className="inline mr-1" />
-                    Premium {userData.role}
-                  </span>
-                </div>
-              </div>
-
-              <div className="flex gap-3 flex-wrap justify-center">
-                {!isEditing ? (
-                  <button onClick={() => setIsEditing(true)} className="btn btn-primary rounded-2xl px-7 py-3 shadow-lg">
-                    <Edit2 size={17} className="mr-2" /> Edit Profile
-                  </button>
-                ) : (
-                  <>
-                    <button onClick={() => setIsEditing(false)} className="btn btn-secondary rounded-2xl px-6 py-3 text-red-500 border-red-100">
-                      <X size={17} className="mr-2" /> Cancel
-                    </button>
-                    <button onClick={handleSave} disabled={loading} className="btn btn-accent rounded-2xl px-7 py-3 shadow-lg">
-                      <Check size={17} className="mr-2" /> {loading ? 'Saving...' : 'Save'}
-                    </button>
-                  </>
-                )}
-              </div>
+      <div className="container mx-auto px-6 -mt-14 relative z-10 max-w-2xl animate-fade-in">
+        {/* --- Header Card --- */}
+        <section className="bg-[#0e1328] border border-white/5 rounded-[2rem] p-6 text-center mb-6 shadow-2xl shadow-black/40">
+          <div className="relative w-28 h-28 mx-auto mb-5">
+            <div className="w-full h-full rounded-full border-4 border-[#0e1328] bg-[#161b33] overflow-hidden shadow-xl">
+              <img src={userData.avatarUrl || "https://api.dicebear.com/7.x/avataaars/svg?seed=John"} alt="" className="w-full h-full object-cover" />
             </div>
+            <div className="absolute bottom-1.5 right-1.5 w-6 h-6 bg-emerald-500 border-4 border-[#0e1328] rounded-full shadow-lg"></div>
+          </div>
+          
+          <h1 className="text-2xl font-black mb-1 flex items-center justify-center gap-2">
+            {userData.name}
+            <div className="bg-violet-500/10 text-violet-400 px-2 py-1 rounded-lg text-[10px] font-black uppercase tracking-widest border border-violet-500/20">WORKER</div>
+          </h1>
+          <p className="text-xs font-bold text-slate-500 mb-6">@{userData.email.split('@')[0]}</p>
+          
+          <p className="text-slate-400 text-sm italic font-medium leading-relaxed mb-8 px-4">
+            "{userData.bio || 'Excellence is not an act, but a habit. I am dedicated to delivering world-class results.'}"
+          </p>
 
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-10">
-              {/* Sidebar */}
-              <div className="lg:col-span-4 space-y-8">
-                <div className="space-y-5">
-                  <h4 className="text-[10px] font-black uppercase tracking-[0.25em] text-slate-300">Details</h4>
-                  {[
-                    { Icon: MapPin, field: 'location', placeholder: 'Your city, Country', display: userData.location || 'Location not set' },
-                    { Icon: Briefcase, field: userData.role === 'customer' ? 'company' : 'skills', placeholder: userData.role === 'customer' ? 'Company Name' : 'React, Design, etc.', display: userData.role === 'customer' ? (userData.company || 'Private Client') : (userData.skills || 'No skills listed') },
-                    { Icon: Globe, field: 'website', placeholder: 'yourwebsite.com', display: userData.website || 'No website' },
-                  ].map(({ Icon, field, placeholder, display }) => (
-                    <div key={field} className="flex items-center gap-4">
-                      <div className="w-10 h-10 rounded-2xl flex items-center justify-center flex-shrink-0"
-                        style={{ background: 'linear-gradient(135deg, rgba(124,58,237,0.1), rgba(6,182,212,0.1))' }}>
-                        <Icon size={18} className="text-violet-600" />
-                      </div>
-                      {isEditing ? (
-                        <input className="form-input text-sm py-2" value={formData[field]}
-                          onChange={e => setFormData({ ...formData, [field]: e.target.value })} placeholder={placeholder} />
-                      ) : (
-                        <span className="text-slate-600 font-semibold text-sm">{display}</span>
-                      )}
-                    </div>
-                  ))}
-                </div>
+          <div className="flex flex-wrap justify-center gap-6">
+            <div className="flex items-center gap-2 text-slate-500">
+               <MapPin size={16} className="text-violet-500" />
+               <span className="text-xs font-bold uppercase tracking-widest">{userData.location || 'Location not set'}</span>
+            </div>
+            <div className="flex items-center gap-2 text-slate-500">
+               <Globe size={16} className="text-cyan-500" />
+               <span className="text-xs font-bold uppercase tracking-widest">{userData.website || 'No website'}</span>
+            </div>
+          </div>
+        </section>
 
-                {/* Verified Card */}
-                <div className="rounded-3xl p-7 text-white relative overflow-hidden"
-                  style={{ background: 'linear-gradient(135deg, #5B21B6 0%, #7C3AED 50%, #0891B2 100%)' }}>
-                  <div style={{ position: 'absolute', top: '-20px', right: '-20px', opacity: 0.15 }}>
-                    <Award size={100} />
-                  </div>
-                  <div className="flex items-center gap-2 mb-3">
-                    <ShieldCheck size={20} className="text-cyan-300" />
-                    <span className="text-xs font-black uppercase tracking-widest text-cyan-300">Verified</span>
-                  </div>
-                  <h5 className="font-black text-xl mb-2 leading-tight">Premium Member</h5>
-                  <p className="text-white/70 text-sm leading-relaxed">Elite identity and quality verified by our team.</p>
-                </div>
+        {/* --- Premium Member Card --- */}
+        <section className="bg-gradient-to-br from-[#1e1b4b] to-[#060812] border border-white/10 rounded-[2rem] p-6 mb-6 relative overflow-hidden group shadow-xl">
+          <div className="absolute top-[-20%] right-[-10%] opacity-10 group-hover:opacity-20 transition-all">
+             <Award size={180} />
+          </div>
+          <div className="relative z-10">
+            <div className="flex items-center gap-2 mb-3">
+              <ShieldCheck size={18} className="text-cyan-400" />
+              <span className="text-[10px] font-black tracking-[0.2em] text-cyan-400 uppercase">Premium Member</span>
+            </div>
+            <h3 className="text-xl font-black mb-2">Verified Professional</h3>
+            <p className="text-slate-400 text-xs font-medium leading-relaxed">
+              Elite identity and quality verified by our expert moderation team for high-end projects.
+            </p>
+          </div>
+        </section>
+
+        {/* --- Content Sections --- */}
+        <div className="space-y-4 mb-8">
+          <div className="bg-[#0e1328] border border-white/5 rounded-3xl p-6">
+            <h4 className="text-[10px] font-black text-slate-600 uppercase tracking-widest mb-4">About Me</h4>
+            <p className="text-sm font-medium text-slate-400 leading-relaxed">
+              Dedicated professional with a track record of delivering high-quality solutions. Specialized in React development, UI/UX design, and complex problem-solving.
+            </p>
+          </div>
+
+          <div className="bg-[#0e1328] border border-white/5 rounded-3xl p-6">
+            <h4 className="text-[10px] font-black text-slate-600 uppercase tracking-widest mb-4">Contact Information</h4>
+            <div className="space-y-4">
+              <div className="flex items-center gap-4">
+                 <div className="w-10 h-10 rounded-xl bg-white/5 flex items-center justify-center text-violet-500 border border-white/5">
+                    <User size={18} />
+                 </div>
+                 <div>
+                    <p className="text-[8px] font-black text-slate-600 uppercase">Email Address</p>
+                    <p className="text-xs font-bold text-slate-300">{userData.email}</p>
+                 </div>
               </div>
-
-              {/* Main Content */}
-              <div className="lg:col-span-8 space-y-10">
-                <div>
-                  <h4 className="text-[10px] font-black uppercase tracking-[0.25em] text-slate-300 mb-5">About Me</h4>
-                  {isEditing ? (
-                    <textarea className="form-input min-h-[180px] leading-relaxed" value={formData.bio}
-                      onChange={e => setFormData({ ...formData, bio: e.target.value })}
-                      placeholder="Tell the world about your expertise..." />
-                  ) : (
-                    <p className="text-xl md:text-2xl font-semibold text-slate-600 leading-relaxed italic">
-                      "{userData.bio || 'Excellence is not an act, but a habit. I am dedicated to delivering world-class results.'}"
-                    </p>
-                  )}
-                </div>
-
-                {userData.role === 'worker' && userData.skills && (
-                  <div>
-                    <h4 className="text-[10px] font-black uppercase tracking-[0.25em] text-slate-300 mb-5">Skills</h4>
-                    <div className="flex flex-wrap gap-3">
-                      {userData.skills.split(',').map((s, i) => (
-                        <span key={i}
-                          className="px-6 py-3 rounded-2xl text-sm font-black border hover:scale-105 transition-transform cursor-default"
-                          style={{ background: 'rgba(124,58,237,0.06)', borderColor: 'rgba(124,58,237,0.15)', color: '#7C3AED' }}>
-                          {s.trim()}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-                )}
+              <div className="flex items-center gap-4">
+                 <div className="w-10 h-10 rounded-xl bg-white/5 flex items-center justify-center text-cyan-500 border border-white/5">
+                    <Globe size={18} />
+                 </div>
+                 <div>
+                    <p className="text-[8px] font-black text-slate-600 uppercase">Website / Portfolio</p>
+                    <p className="text-xs font-bold text-slate-300">{userData.website || 'Not provided'}</p>
+                 </div>
               </div>
             </div>
           </div>
         </div>
+
+        <button 
+          onClick={() => setIsEditing(!isEditing)}
+          className="w-full py-4 bg-white/5 border border-white/10 rounded-2xl text-xs font-black uppercase tracking-widest flex items-center justify-center gap-2 hover:bg-white/10 transition-all active:scale-95"
+        >
+          {isEditing ? <Check size={16} /> : <Edit2 size={16} />}
+          {isEditing ? 'Save Changes' : 'Edit Profile'}
+        </button>
       </div>
     </div>
   );
